@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#818cf8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Main branch line -->
+  <line x1="50" y1="10" x2="50" y2="90" stroke="url(#grad)" stroke-width="8" stroke-linecap="round" />
+  <!-- Forked branch -->
+  <path d="M 50 40 C 75 40, 75 60, 75 60 L 75 90" stroke="url(#grad)" stroke-width="8" fill="none" stroke-linecap="round" />
+  <!-- Commit circles -->
+  <circle cx="50" cy="25" r="8" fill="#111827" stroke="url(#grad)" stroke-width="4" />
+  <circle cx="75" cy="75" r="8" fill="#111827" stroke="url(#grad)" stroke-width="4" />
+  <!-- AI Spark -->
+  <path d="M50 25 L 47 20 L 42 17 L 47 14 L 50 9 L 53 14 L 58 17 L 53 20 Z" fill="#e0e7ff" />
+</svg>

@@ -5,17 +5,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AutoCommit - AI-Powered Git Commits</title>
+
+  <!-- SEO and Meta Tags for autocommit.skedia.io -->
+  <meta name="title" content="AutoCommit - Stop Writing Git Commits, Let AI Do It For You.">
+  <meta name="description"
+    content="A simple, open-source CLI tool that uses local AI to automatically generate clear and conventional git commit messages.">
+  <meta name="author" content="Skedia">
+  <meta name="keywords" content="autocommit, git, commit, ai, automation, developer tool, cli, open source, ollama">
+  <link rel="canonical" href="https://autocommit.skedia.io">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://autocommit.skedia.io">
+  <meta property="og:title" content="AutoCommit - AI-Powered Git Commits">
+  <meta property="og:description"
+    content="A simple CLI tool that uses local AI to automatically generate clear and conventional git commit messages.">
+  <meta property="og:site_name" content="AutoCommit by Skedia">
+  <meta property="og:locale" content="en">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://autocommit.skedia.io">
+  <meta property="twitter:title" content="AutoCommit - AI-Powered Git Commits">
+  <meta property="twitter:description"
+    content="A simple CLI tool that uses local AI to automatically generate clear and conventional git commit messages.">
+
+  <!-- Brand Assets from Main Domain (as requested) -->
+  <meta property="og:image" content="https://skedia.io/og-image.png">
+  <meta property="twitter:image" content="https://skedia.io/og-image.png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+
+  <!-- Manifest and Theme -->
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#111827">
+  <meta name="msapplication-TileColor" content="#4f46e5">
+
+  <!-- Scripts & Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://rybbit.skedia.io/api/script.js" data-site-id="6" data-track-errors="true"
+    data-session-replay="true" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
       background-color: #111827;
-      /* Tailwind gray-900 */
     }
 
     .font-mono {
@@ -39,20 +77,11 @@
   <!-- Header -->
   <header class="container mx-auto px-6 py-4 flex justify-between items-center">
     <div class="flex items-center space-x-3">
-      <svg class="h-8 w-8 text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-        stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
-      </svg>
+      <img src="/icon.svg" alt="AutoCommit Logo" class="h-10 w-10">
       <h1 class="text-2xl font-bold text-white">autocommit</h1>
     </div>
     <a href="https://github.com/Skediaio/autocommit" target="_blank"
       class="text-gray-400 hover:text-white transition duration-300">
-      <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill-rule="evenodd"
-          d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
-          clip-rule="evenodd" />
-      </svg>
     </a>
   </header>
 
