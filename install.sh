@@ -12,18 +12,14 @@ SCRIPT_URL="https://raw.githubusercontent.com/Skediaio/autocommit/main/autocommi
 INSTALL_DIR="$HOME/.local/bin"
 DEST_PATH="$INSTALL_DIR/autocommit"
 
+# --- Colors ---
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+RED='\033[0;31m'
 NC='\033[0m'
 
 echo -e "${BLUE}Starting installation of autocommit...${NC}"
-
-# Check for placeholder URL
-if [[ "$SCRIPT_URL" == "https://raw.githubusercontent.com/Skediaio/autocommit/main/autocommit.sh" ]]; then
-  echo -e "${YELLOW}Warning: Please edit this script and replace the placeholder SCRIPT_URL with the actual GitHub URL.${NC}"
-  exit 1
-fi
 
 # Create installation directory if it doesn't exist
 echo "Ensuring installation directory exists at $INSTALL_DIR..."
@@ -32,9 +28,11 @@ mkdir -p "$INSTALL_DIR"
 # Download the script, renaming it in the process
 echo "Downloading autocommit.sh and installing as 'autocommit'..."
 if command -v curl >/dev/null 2>&1; then
-  curl -L -o "$DEST_PATH" "$SCRIPT_URL"
+  # Use -fsSL: fail silently, show errors, follow redirects
+  curl -fsSL -o "$DEST_PATH" "$SCRIPT_URL"
 elif command -v wget >/dev/null 2>&1; then
-  wget -O "$DEST_PATH" "$SCRIPT_URL"
+  # Use -qO: quiet, output to file
+  wget -qO "$DEST_PATH" "$SCRIPT_URL"
 else
   echo -e "${RED}Error: You need either 'curl' or 'wget' to download the script.${NC}"
   exit 1
