@@ -3,7 +3,7 @@
 AutoCommit is a command-line tool that uses the power of AI to automatically generate clear, conventional, and descriptive `git` commit messages for you. It analyzes your staged changes, understands the context, and proposes a commit message that follows the **Conventional Commits** specification.
 
 ---
-## ## Features
+## Features
 
 * **🧠 AI-Generated Messages**: Leverages powerful AI models to understand your code changes and write meaningful commit messages.
 * **✅ Conventional Commits**: Enforces the Conventional Commits standard out of the box for a clean and readable git history.
@@ -15,7 +15,7 @@ AutoCommit is a command-line tool that uses the power of AI to automatically gen
 * **🔧 Customizable**: Power users can override the default AI instructions to tailor the commit message style to their needs.
 
 ---
-## ## Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following tools installed on your system:
 
@@ -25,7 +25,7 @@ Before you begin, ensure you have the following tools installed on your system:
 * **Ollama** (Optional): Required if you want to run local AI models. You can download it from [ollama.com](https://ollama.com).
 
 ---
-## ## Installation
+## Installation
 
 You can install `autocommit` with a single command. Just paste this into your terminal:
 
@@ -51,7 +51,7 @@ bash install.sh
 The installer will place the `autocommit` script in `$HOME/.local/bin` and make it executable. If this directory is not in your `PATH`, the script will provide instructions on how to add it.
 
 ---
-## ## Configuration
+## Configuration
 
 The first time you run the tool, you'll need to configure it.
 
@@ -66,7 +66,7 @@ This will launch an interactive setup guide where you can:
 Your settings will be saved to `~/.autocommit/config.json`.
 
 ---
-## ## Usage
+## Usage
 
 Using `autocommit` is simple and fits right into your existing workflow.
 
@@ -83,7 +83,7 @@ Using `autocommit` is simple and fits right into your existing workflow.
 3.  The AI will generate a commit message. Use the **interactive menu** to commit the changes, regenerate the message, or copy it to your clipboard.
 
 ---
-## ## Commands
+## Commands
 
 | Command                 | Description                                                  |
 | ----------------------- | ------------------------------------------------------------ |
@@ -94,7 +94,7 @@ Using `autocommit` is simple and fits right into your existing workflow.
 | `autocommit --version`    | Shows the current version of the script.                     |
 
 ---
-## ## Advanced Usage
+## Advanced Usage
 
 ### Environment Variables
 
