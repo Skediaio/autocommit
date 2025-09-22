@@ -1,8 +1,6 @@
 #!/bin/bash
-
 # AutoCommit Bash Script
 # AI-powered Git Commit Helper with ENV + Config merge
-
 set -e
 
 # Configuration file path
@@ -38,12 +36,12 @@ Rules:
 Always analyze the complete git diff carefully including file paths and +/- prefixes to provide specific, meaningful commit messages."
 
 # Colors
-RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; NC='\033[0m'
+RED='\e[0;31m'; GREEN='\e[0;32m'; YELLOW='\e[1;33m'; BLUE='\e[0;34m'; NC='\e[0m'
 
 # Runtime config values (after merge)
 provider=""; api_key=""; model=""; base_url=""
 
-print_color() { echo -e "${1}${2}${NC}"; }
+print_color() { echo -e "${1}${2}${NC}" >&2; }
 
 cleanup() {
   rm -rf "$TEMP_DIR" 2>/dev/null || true
@@ -124,7 +122,6 @@ load_config() {
   provider="${AUTOCOMMIT_PROVIDER:-$f_provider}"
   model="${AUTOCOMMIT_MODEL:-$f_model}"
   base_url="${AUTOCOMMIT_BASE_URL:-$f_base_url}"
-
   if [[ -z "$base_url" && -n "$provider" ]]; then
     base_url=$(default_base_url_for "$provider")
   fi
@@ -185,7 +182,6 @@ load_config() {
 # You can download these models by running `ollama run <model_name>`.
 configure_provider() {
   create_config_dir
-
   print_color "$BLUE" "Select AI Provider:"
   echo "1) OpenAI"
   echo "2) Ollama (local)"
@@ -194,7 +190,6 @@ configure_provider() {
   echo "5) Groq"
   echo "6) OpenRouter"
   echo "7) Custom (OpenAI-compatible)"
-
   read -p "Enter choice (1-7) [2]: " choice; choice=${choice:-2}
 
   local m base akey is_custom=0
@@ -252,14 +247,12 @@ configure_provider() {
   local def_debug="${AUTOCOMMIT_DEBUG:-$DEBUG}"
   local def_max="${AUTOCOMMIT_MAX_DIFF_CHARS:-$MAX_DIFF_CHARS}"
   local def_write="${AUTOCOMMIT_WRITE_BACK:-$WRITE_BACK}"
-
   read -p "Relaxed validation (skips strict Conventional Commit check)? [0/1] [$def_relax]: " ans; RELAX=${ans:-$def_relax}
   read -p "Enable DEBUG mode (show API requests/responses)? [0/1] [$def_debug]: " ans; DEBUG=${ans:-$def_debug}
   read -p "Max diff chars sent to model (0 = unlimited) [$def_max]: " ans; MAX_DIFF_CHARS=${ans:-$def_max}
   read -p "Save env variables to config file on each run (WRITE_BACK)? [0/1] [$def_write]: " ans; WRITE_BACK=${ans:-$def_write}
 
   model="$m"; base_url="$base"; api_key="$akey"
-
   jq -n \
     --arg provider "$provider" \
     --arg api_key "$api_key" \
@@ -282,7 +275,6 @@ configure_provider() {
     }' > "$CONFIG_FILE"
 
   print_color "$GREEN" "Configuration saved to $CONFIG_FILE"
-
   if [[ "$provider" == "ollama" ]]; then
     print_color "$YELLOW" "Testing Ollama connection..."
     if ! curl -s "${base_url%/}/api/tags" >/dev/null 2>&1; then
@@ -305,12 +297,12 @@ get_changes_summary() {
   # Get both status and numstat for comprehensive view, ignoring lockfiles
   local status; status=$(git diff --cached --name-status -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml')
   local numstat; numstat=$(git diff --cached --numstat -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml')
-
+  
   local added modified deleted total_add total_del
   added=$(echo "$status" | grep -c "^A" || true)
   modified=$(echo "$status" | grep -c "^M" || true)
   deleted=$(echo "$status" | grep -c "^D" || true)
-
+  
   total_add=0; total_del=0
   while read -r a d p; do
     [[ -z "$p" ]] && continue
@@ -331,7 +323,6 @@ get_diff_content() {
   # Ignore common lockfiles to reduce noise and improve AI focus
   local diff; diff=$(git diff --cached --no-color -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml')
   local diff_size=${#diff}
-
   print_color "$BLUE" "📊 Diff size: $diff_size chars"
 
   # If MAX_DIFF_CHARS is 0 or negative, disable the limit entirely
@@ -352,18 +343,20 @@ get_diff_content() {
 debug_dump() {
   [[ "$DEBUG" == "1" ]] || return 0
   local label="$1"; shift
-  echo -e "\n${BLUE}[DEBUG] $label${NC}"
+  echo -e "\n${BLUE}[DEBUG] $label${NC}" >&2
   local content="$*"; local n=${#content}
-  if (( n > 2000 )); then echo "${content:0:2000}"; echo "[...truncated ${n} chars total...]"
-  else echo "$content"; fi
+  if (( n > 2000 )); then 
+    echo "${content:0:2000}" >&2
+    echo "[...truncated ${n} chars total...]" >&2
+  else 
+    echo "$content" >&2
+  fi
 }
 
 call_ollama() {
   local prompt_file="$1"
-
   # Create payload file to avoid argument list too long
   local payload_file="$TEMP_DIR/payload.json"
-
   # Build JSON payload using file input
   cat > "$payload_file" << EOF
 {
@@ -379,7 +372,7 @@ call_ollama() {
 EOF
 
   debug_dump "Ollama Payload" "$(head -20 "$payload_file")"
-
+  
   local response
   response=$(curl -sS -X POST "${base_url%/}/api/generate" \
     -H "Content-Type: application/json" \
@@ -410,17 +403,17 @@ EOF
     return 1
   fi
 
-  # Clean up the message
+  # Clean up the message - remove any markdown formatting or extra whitespace
   commit_message=$(echo "$commit_message" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed 's/^```.*$//g' | sed 's/^`//;s/`$//')
+  
+  # Return ONLY the clean commit message to stdout
   echo "$commit_message"
 }
 
 call_openai_compatible() {
   local prompt_file="$1"
-
   # Create payload file
   local payload_file="$TEMP_DIR/payload.json"
-
   cat > "$payload_file" << EOF
 {
   "model": "$model",
@@ -469,7 +462,10 @@ EOF
     return 1
   fi
 
+  # Clean up the message - remove any markdown formatting or extra whitespace
   commit_message=$(echo "$commit_message" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed 's/^```.*$//g' | sed 's/^`//;s/`$//')
+  
+  # Return ONLY the clean commit message to stdout
   echo "$commit_message"
 }
 
@@ -520,6 +516,7 @@ EOF
     return 1
   fi
 
+  # Return the clean commit message
   echo "$commit_message"
 }
 
@@ -635,7 +632,6 @@ main() {
   # Default action: generate message and interact
   check_git_status
   load_config
-
   print_color "$BLUE" "🔍 Analyzing staged changes..."
 
   local additional_context=""
@@ -643,6 +639,7 @@ main() {
     if commit_message=$(generate_commit_message "$additional_context"); then
       additional_context="" # Reset context after each successful generation
       show_menu "$commit_message"
+      
       case "$user_choice" in
         1)
           print_color "$BLUE" "📝 Committing changes..."
