@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoCommit - AI-Powered Git Commits</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #111827;
+      /* Tailwind gray-900 */
+    }
+
+    .font-mono {
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glow {
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), 0 0 30px rgba(129, 140, 248, 0.2);
+    }
+  </style>
+</head>
+
+<body class="text-gray-300 antialiased">
+
+  <!-- Header -->
+  <header class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <svg class="h-8 w-8 text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+      </svg>
+      <h1 class="text-2xl font-bold text-white">autocommit</h1>
+    </div>
+    <a href="https://github.com/Skediaio/autocommit" target="_blank"
+      class="text-gray-400 hover:text-white transition duration-300">
+      <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill-rule="evenodd"
+          d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
+          clip-rule="evenodd" />
+      </svg>
+    </a>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-16 md:py-24 text-center">
+
+    <!-- Hero Section -->
+    <div class="max-w-4xl mx-auto">
+      <p class="text-sm font-semibold text-sky-400 mb-2">Made with ❤️ by <a
+          href="https://skedia.io?utm_source=autocommit_website&utm_medium=web&utm_campaign=open_source" target="_blank"
+          class="hover:underline">Skedia.io</a></p>
+      <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+        Stop Writing Git Commits.
+        <br>
+        <span class="gradient-text text-3xl md:text-5xl">Let AI Do It For You.</span>
+      </h2>
+      <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+        AutoCommit analyzes your staged changes and writes clear, conventional commit messages instantly. Spend less
+        time writing, more time coding.
+      </p>
+    </div>
+
+    <!-- Installation Command -->
+    <div class="mt-12 max-w-2xl mx-auto">
+      <p class="text-gray-400 mb-4">Install with one command:</p>
+      <div id="code-block-wrapper"
+        class="relative bg-gray-900/70 border border-gray-700 rounded-xl p-4 text-left shadow-2xl glow">
+        <pre><code class="font-mono text-gray-200 text-sm md:text-base whitespace-pre-wrap"><span
+              class="text-sky-400">curl</span> -fsSL
+            https://raw.githubusercontent.com/Skediaio/autocommit/main/install.sh | <span
+              class="text-sky-400">bash</span></code></pre>
+        <button onclick="copyToClipboard()"
+          class="absolute top-3 right-3 p-2 bg-gray-700/50 rounded-md hover:bg-gray-600/50 transition duration-300">
+          <svg id="copy-icon" class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+          </svg>
+          <svg id="check-icon" class="h-5 w-5 text-green-400 hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </button>
+      </div>
+      <p class="mt-4 text-sm text-gray-500">
+        Transparency is important. You can <a href="https://github.com/Skediaio/autocommit/blob/main/install.sh"
+          target="_blank" class="text-sky-500 hover:underline">review the installation script</a> on GitHub before
+        running.
+      </p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mt-24 md:mt-32">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
+        <!-- Feature 1 -->
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-sky-900/50 text-sky-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.375 3.375 0 0114 18.442V19.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75v-1.058a3.375 3.375 0 01-.41-1.395l-.548-.547z" />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Smart Generation</h3>
+          <p class="mt-2 text-gray-400">Leverages powerful AI models to analyze code and generate high-quality, relevant
+            commit messages.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-sky-900/50 text-sky-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Local & Private</h3>
+          <p class="mt-2 text-gray-400">Run it completely offline with Ollama. Your code never leaves your machine,
+            ensuring total privacy.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-sky-900/50 text-sky-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Conventional</h3>
+          <p class="mt-2 text-gray-400">Enforces the Conventional Commits specification by default for a clean,
+            automated, and readable git history.</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-sky-900/50 text-sky-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-semibold text-white">Flexible Formatting</h3>
+          <p class="mt-2 text-gray-400">Go beyond single-line commits. Use relax mode or provide custom instructions to
+            generate detailed, multi-line messages in any style you prefer.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="container mx-auto px-6 py-8 mt-16 border-t border-gray-800">
+    <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+      <p class="text-gray-500">A project by <a
+          href="https://skedia.io?utm_source=autocommit_website&utm_medium=web&utm_campaign=open_source" target="_blank"
+          class="hover:text-sky-400 transition">Skedia.io</a></p>
+      <p class="text-gray-500 mt-2 md:mt-0">&copy; 2025 AutoCommit. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyToClipboard() {
+      const command = "curl -fsSL https://raw.githubusercontent.com/Skediaio/autocommit/main/install.sh | bash";
+      // Use the deprecated execCommand for broader iframe compatibility
+      const textArea = document.createElement("textarea");
+      textArea.value = command;
+      textArea.style.position = "fixed"; // Avoid scrolling to bottom
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        const copyIcon = document.getElementById('copy-icon');
+        const checkIcon = document.getElementById('check-icon');
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        setTimeout(() => {
+          copyIcon.classList.remove('hidden');
+          checkIcon.classList.add('hidden');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+      document.body.removeChild(textArea);
+    }
+  </script>
+</body>
+
+</html>
